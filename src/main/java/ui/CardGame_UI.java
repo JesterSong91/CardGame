@@ -25,19 +25,6 @@ public class CardGame_UI {
     }
 
     public void initButtonsActionListeners() {
-//        AddButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                answerText = AnswerTextArea.getText();
-//                questionText = QuestionTextArea.getText();
-//                answerCodeText = AnswerCodeTextArea.getText();
-//                Long tagId = (long) TagComboBox.getSelectedIndex() + 1;
-//
-//                System.out.println(answerText + " " + questionText + " " + answerCodeText);
-//
-//                qao.performInsertNewFAQ(answerText, questionText, answerCodeText, tagId);
-//            }
-//        });
     }
 
 }
