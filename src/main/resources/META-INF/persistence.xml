@@ -8,6 +8,7 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <class>entity.Card</class>
+        <class>entity.Player</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver"
                       value="oracle.jdbc.OracleDriver"/>
