@@ -18,5 +18,17 @@ create or replace package body Card_Game is
     group by p2c.player_id;
     
   end player_avg_strength;
+  
+  procedure reset_played_cards is
+  begin
+    
+    update CG_PLAYER_TO_CARDS
+    set is_played = 0
+    where is_played = 1;
+    
+    commit;
+  
+  end reset_played_cards;
+  
 
 end Card_Game;

@@ -36,8 +36,14 @@ public class CardOperation {
         emf.close();
     }
 
-    public List findAllCards() {
+    public List getAllCards() {
         return em.createQuery("Select c from Card c")
                 .getResultList();
+    }
+
+    public Card getCardById(int cardId) {
+        return (Card) em.createQuery("Select c from Card c where c.id = :cid")
+                .setParameter("cid", cardId)
+                .getSingleResult();
     }
 }

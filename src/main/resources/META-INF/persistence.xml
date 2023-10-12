@@ -9,6 +9,7 @@
 
         <class>entity.Card</class>
         <class>entity.Player</class>
+        <class>entity.PlayerCards</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver"
                       value="oracle.jdbc.OracleDriver"/>

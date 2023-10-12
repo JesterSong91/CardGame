@@ -1,5 +1,6 @@
 package entityoperation;
 
+import entity.Player;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -14,16 +15,20 @@ public class PlayerOperation {
     public PlayerOperation() {
         emf = Persistence.createEntityManagerFactory("default");
         em = emf.createEntityManager();
-
-//        insertNewPlayer();
     }
 
-    public void insertNewPlayer() {
-
-    }
-
-    public List findAllPlayers() {
+    public List getAllPlayers() {
         return em.createQuery("Select p from Player p")
                 .getResultList();
+    }
+
+    public Player getPlayer(String name) {
+        return (Player) em.createQuery("Select p from Player p where p.name = :pn")
+                .setParameter("pn", name)
+                .getResultList().get(0);
+    }
+
+    public void playerMakeRandomMove(String name) {
+
     }
 }
