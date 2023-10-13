@@ -16,6 +16,9 @@ public class CardGame_UI {
     public PlayerCardsOperation pco;
 
     public JPanel rootPanel;
+    private JPanel secondPlayerCards;
+    private JPanel firstPlayerCards;
+    private JPanel gameTable;
 
     public CardGame_UI() {
         co = new CardOperation();
