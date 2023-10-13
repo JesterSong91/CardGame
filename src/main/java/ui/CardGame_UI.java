@@ -36,7 +36,8 @@ public class CardGame_UI {
         for (Player currPlayer : players
              ) {
             System.out.println("currPlayer: " + currPlayer.getId() + ", " + currPlayer.getName());
-            System.out.println("Player has " + pco.getPlayerCardsQuantity(currPlayer.getName()) + " cards with " + pco.getAveragePlayerCardsStrength(currPlayer.getName()) + " average strength");
+            System.out.println("Player has " + pco.getPlayerCardsQuantity(currPlayer.getName(), false) + " cards with " + pco.getAveragePlayerCardsStrength(currPlayer.getName()) + " average strength");
+            System.out.println("Player has " + pco.getPlayerCardsQuantity(currPlayer.getName(), true) + " active cards");
 
                 List<PlayerCards> pc = pco.getAllPlayerCards(currPlayer.getId());
 

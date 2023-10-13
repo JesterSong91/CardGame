@@ -10,7 +10,6 @@ public class PlayerCardsOperation {
 
     private EntityManagerFactory emf;
     private EntityManager em;
-    private boolean procedureResult;
     private StoredProcedureQuery spq;
 
     public PlayerCardsOperation() {
@@ -24,16 +23,19 @@ public class PlayerCardsOperation {
                 .getResultList();
     }
 
-    public int getPlayerCardsQuantity(String name) {
-        spq = em.createStoredProcedureQuery("Card_Game.cards_quantity");
+    public int getPlayerCardsQuantity(String name, boolean onlyActiveCards) {
+        if (onlyActiveCards) {
+            spq = em.createStoredProcedureQuery("Card_Game.available_cards_quantity");
+        } else {
+            spq = em.createStoredProcedureQuery("Card_Game.all_cards_quantity");
+        }
 
         spq.registerStoredProcedureParameter("player_name", String.class, ParameterMode.IN);
         spq.registerStoredProcedureParameter("quantity", Integer.class, ParameterMode.OUT);
 
         spq.setParameter("player_name", name);
 
-        procedureResult = spq.execute();
-        System.out.println("getPlayerCardsQuantity(): " + procedureResult);
+        spq.execute();
 
         int cards_quantity = (Integer) spq.getOutputParameterValue(2);
 
@@ -48,7 +50,7 @@ public class PlayerCardsOperation {
 
         spq.setParameter("player_name", name);
 
-        procedureResult = spq.execute();
+        spq.execute();
 
         int avg_strength = (Integer) spq.getOutputParameterValue(2);
 

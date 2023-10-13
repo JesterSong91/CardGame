@@ -1,12 +1,23 @@
 create or replace package body Card_Game is
 
-  procedure cards_quantity(player_name IN VARCHAR2, quantity OUT NUMBER) is
+  procedure all_cards_quantity(player_name IN VARCHAR2, quantity OUT NUMBER) is
   begin
 
     select count(p2c.card_id) into quantity from CG_PLAYER p
     join CG_PLAYER_TO_CARDS p2c on p2c.player_id = p.player_id
     where p.name = player_name;
-  end cards_quantity;
+    
+  end all_cards_quantity;
+  
+  procedure available_cards_quantity(player_name IN VARCHAR2, quantity OUT NUMBER) is
+  begin
+
+    select count(p2c.card_id) into quantity from CG_PLAYER p
+    join CG_PLAYER_TO_CARDS p2c on p2c.player_id = p.player_id
+    where p.name = player_name
+          and p2c.is_played = 0;
+    
+  end available_cards_quantity;
   
   procedure player_avg_strength(player_name IN VARCHAR2, avg_strength OUT NUMBER) is
   begin
@@ -29,6 +40,5 @@ create or replace package body Card_Game is
     commit;
   
   end reset_played_cards;
-  
 
 end Card_Game;
