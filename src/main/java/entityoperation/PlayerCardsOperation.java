@@ -10,6 +10,8 @@ public class PlayerCardsOperation {
 
     private EntityManagerFactory emf;
     private EntityManager em;
+    private boolean procedureResult;
+    private StoredProcedureQuery spq;
 
     public PlayerCardsOperation() {
         emf = Persistence.createEntityManagerFactory("default");
@@ -23,14 +25,15 @@ public class PlayerCardsOperation {
     }
 
     public int getPlayerCardsQuantity(String name) {
-        StoredProcedureQuery spq = em.createStoredProcedureQuery("Card_Game.cards_quantity");
+        spq = em.createStoredProcedureQuery("Card_Game.cards_quantity");
 
         spq.registerStoredProcedureParameter("player_name", String.class, ParameterMode.IN);
         spq.registerStoredProcedureParameter("quantity", Integer.class, ParameterMode.OUT);
 
         spq.setParameter("player_name", name);
 
-        boolean result = spq.execute();
+        procedureResult = spq.execute();
+        System.out.println("getPlayerCardsQuantity(): " + procedureResult);
 
         int cards_quantity = (Integer) spq.getOutputParameterValue(2);
 
@@ -38,17 +41,21 @@ public class PlayerCardsOperation {
     }
 
     public int getAveragePlayerCardsStrength(String name) {
-        StoredProcedureQuery spq = em.createStoredProcedureQuery("Card_Game.player_avg_strength");
+        spq = em.createStoredProcedureQuery("Card_Game.player_avg_strength");
 
         spq.registerStoredProcedureParameter("player_name", String.class, ParameterMode.IN);
         spq.registerStoredProcedureParameter("avg_strength", Integer.class, ParameterMode.OUT);
 
         spq.setParameter("player_name", name);
 
-        boolean result = spq.execute();
+        procedureResult = spq.execute();
 
         int avg_strength = (Integer) spq.getOutputParameterValue(2);
 
         return avg_strength;
+    }
+
+    public boolean isPlayerHasCards(String name) {
+        return true;
     }
 }
