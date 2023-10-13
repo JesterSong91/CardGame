@@ -20,6 +20,7 @@ public class PlayerCardsOperation {
     public List<PlayerCards> getAllPlayerCards(Long playerId) {
         return em.createQuery("Select pc from PlayerCards pc where pc.player_id = :pid")
                 .setParameter("pid", playerId)
+                .setMaxResults(6)
                 .getResultList();
     }
 
