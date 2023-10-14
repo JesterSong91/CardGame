@@ -17,6 +17,7 @@ public class PlayerOperation {
     private Player player;
 
     private List<PlayerCards> playerCards;
+    private String name;
 
     public PlayerOperation(String name) {
         emf = Persistence.createEntityManagerFactory("default");
@@ -34,13 +35,6 @@ public class PlayerOperation {
                 .getResultList();
     }
 
-    private String name;
-
-//    public List getAllPlayers() {
-//        return em.createQuery("Select p from Player p")
-//                .getResultList();
-//    }
-
     public List<PlayerCards> getPlayerCards() {
         return playerCards;
     }
@@ -49,16 +43,5 @@ public class PlayerOperation {
         return (Player) em.createQuery("Select p from Player p where p.name = :pn")
                 .setParameter("pn", name)
                 .getResultList().get(0);
-    }
-
-//    public ArrayList<PlayerCards> getAllPlayerCards() {
-//        em.createQuery("Select pc from PlayerCards pc where pc.player_id = :pid")
-//                .setParameter("pid", 13)
-//                .setMaxResults(6)
-//                .getResultList();
-//    }
-
-    public void playerMakeRandomMove(String name) {
-
     }
 }

@@ -96,11 +96,6 @@ public class CardGame_UI {
     public void createPlayerDeck(PlayerOperation po, ArrayList<JPanel> playerCards) {
         List<Card> cards = co.getAllCards();
 
-        for (Card currCard : cards
-        ) {
-            System.out.println("currCard: " + currCard.getId() + ", " + currCard.getStrength() + ", " + currCard.getCard_name());
-        }
-
         int i = 0;
 
         for (PlayerCards currPC : po.getPlayerCards()
