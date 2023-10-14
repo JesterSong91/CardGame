@@ -82,27 +82,6 @@ public class CardGame_UI {
         secondPlayerCards.add(sixthSecondCard);
     }
 
-    public ArrayList<JPanel> playerCardsPanelFactory() {
-        ArrayList<JPanel> cards = new ArrayList<>(CardGameConsts.PLAYER_CARDS_LIMIT);
-
-        for (int i = 0; i < CardGameConsts.PLAYER_CARDS_LIMIT; i++) {
-            JPanel currPan = new JPanel();
-            JLabel unitName = new JLabel("Test Unit");
-            JLabel unitStrength = new JLabel("50");
-            currPan.add(unitName);
-            currPan.add(unitStrength);
-            currPan.setBorder(BorderFactory.createLineBorder(Color.orange));
-            cards.add(currPan);
-//            System.out.println("Test!");
-//            System.out.println("cards.size(): " + cards.size());
-//            System.out.println("currPan: " + currPan);
-        }
-
-//        System.out.println("cards.size(): " + cards.size());
-
-        return cards;
-    }
-
     public void initDecks() {
         firstPlayer = fpo.getPlayer("John");
         firstPlayerName.setText(firstPlayer.getName());
