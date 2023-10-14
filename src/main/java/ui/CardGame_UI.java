@@ -105,8 +105,10 @@ public class CardGame_UI {
                 if (currPC.getCard_id() == currCard.getId()) {
                     JLabel currUnitName = new JLabel(currCard.getCard_name());
                     JLabel currStrength = new JLabel(String.valueOf(currCard.getStrength()));
+                    JLabel currPlayerCardId = new JLabel(String.valueOf(currPC.getId()));
                     playerCards.get(i).add(currUnitName);
                     playerCards.get(i).add(currStrength);
+                    playerCards.get(i).add(currPlayerCardId);
                 }
             }
 
