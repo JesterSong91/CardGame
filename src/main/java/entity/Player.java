@@ -2,6 +2,8 @@ package entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "CG_PLAYER")
 public class Player {
@@ -11,7 +13,6 @@ public class Player {
     public void setId(Long id) {
         this.id = id;
     }
-
     @Id
     @Column(name = "player_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
