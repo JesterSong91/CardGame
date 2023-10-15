@@ -2,9 +2,7 @@ package entityoperation;
 
 import entity.Player;
 import entity.PlayerCards;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +14,11 @@ public class PlayerOperation {
 
     private Player player;
 
+    private Long PlayerCardId;
     private List<PlayerCards> playerCards;
     private String name;
+
+    private StoredProcedureQuery spq;
 
     public PlayerOperation(String name) {
         emf = Persistence.createEntityManagerFactory("default");
@@ -37,6 +38,16 @@ public class PlayerOperation {
 
     public List<PlayerCards> getPlayerCards() {
         return playerCards;
+    }
+
+    public void playCard(Long PlayerCardId) {
+        spq = em.createStoredProcedureQuery("Card_Game.play_card");
+
+        spq.registerStoredProcedureParameter("playing_card_id", Long.class, ParameterMode.IN);
+
+        spq.setParameter("playing_card_id", PlayerCardId);
+
+        spq.execute();
     }
 
     public Player getPlayer(String name) {

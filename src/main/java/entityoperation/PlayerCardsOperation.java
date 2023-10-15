@@ -61,4 +61,10 @@ public class PlayerCardsOperation {
     public boolean isPlayerHasCards(String name) {
         return true;
     }
+
+    public void resetPlayerCards() {
+        spq = em.createStoredProcedureQuery("Card_Game.reset_played_cards");
+
+        spq.execute();
+    }
 }

@@ -40,5 +40,16 @@ create or replace package body Card_Game is
     commit;
   
   end reset_played_cards;
+  
+  procedure play_card(playing_card_id IN NUMBER) is
+  begin
+    
+    update CG_PLAYER_TO_CARDS p2c
+    set p2c.is_played = 1
+    where p2c.player_to_cards_id = playing_card_id;
+            
+    commit;
+    
+  end play_card;
 
 end Card_Game;

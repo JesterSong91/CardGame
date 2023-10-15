@@ -109,6 +109,8 @@ public class CardGame_UI {
                     playerCards.get(i).add(currUnitName);
                     playerCards.get(i).add(currStrength);
                     playerCards.get(i).add(currPlayerCardId);
+
+                    playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po));
                 }
             }
 
