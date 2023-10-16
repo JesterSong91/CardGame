@@ -37,6 +37,8 @@ public class CardGame_UI {
     private JPanel fourthSecondCard;
     private JPanel fifthSecondCard;
     private JPanel sixthSecondCard;
+    private JLabel secPlayerScore;
+    private JLabel firPlayerScore;
 
     public Player firstPlayer;
     public Player secondPlayer;
@@ -89,11 +91,14 @@ public class CardGame_UI {
         secondPlayer = spo.getPlayer("Mixy");
         secondPlayerName.setText(secondPlayer.getName());
 
-        createPlayerDeck(fpo, firstPlayerCards);
-        createPlayerDeck(spo, secondPlayerCards);
+        firPlayerScore.setText(String.valueOf(fpo.getPlayerStrength()));
+        secPlayerScore.setText(String.valueOf(spo.getPlayerStrength()));
+
+        createPlayerDeck(fpo, firstPlayerCards, firPlayerScore);
+        createPlayerDeck(spo, secondPlayerCards, secPlayerScore);
     }
 
-    public void createPlayerDeck(PlayerOperation po, ArrayList<JPanel> playerCards) {
+    public void createPlayerDeck(PlayerOperation po, ArrayList<JPanel> playerCards, JLabel playerScoreLabel) {
         List<Card> cards = co.getAllCards();
 
         int i = 0;
@@ -110,7 +115,7 @@ public class CardGame_UI {
                     playerCards.get(i).add(currStrength);
                     playerCards.get(i).add(currPlayerCardId);
 
-                    playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po));
+                    playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po, playerScoreLabel));
                 }
             }
 

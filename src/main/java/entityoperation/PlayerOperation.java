@@ -18,6 +18,12 @@ public class PlayerOperation {
     private List<PlayerCards> playerCards;
     private String name;
 
+    private int playerStrength;
+
+    public int getPlayerStrength() {
+        return playerStrength;
+    }
+
     private StoredProcedureQuery spq;
 
     public PlayerOperation(String name) {
@@ -25,6 +31,7 @@ public class PlayerOperation {
         em = emf.createEntityManager();
 
         this.name = name;
+        this.playerStrength = 0;
 
         player = (Player) em.createQuery("Select p from Player p where p.name = :pn")
                 .setParameter("pn", name)
@@ -48,6 +55,22 @@ public class PlayerOperation {
         spq.setParameter("playing_card_id", PlayerCardId);
 
         spq.execute();
+
+        playerStrength = calculatePlayerStrength();
+        System.out.println("Player " + player.getName() + " has " + playerStrength + " score.");
+    }
+
+    private int calculatePlayerStrength() {
+        spq = em.createStoredProcedureQuery("Card_Game.player_strength");
+
+        spq.registerStoredProcedureParameter("player_name", String.class, ParameterMode.IN);
+        spq.registerStoredProcedureParameter("strength", Integer.class, ParameterMode.OUT);
+
+        spq.setParameter("player_name", player.getName());
+
+        spq.execute();
+
+        return (Integer) spq.getOutputParameterValue(2);
     }
 
     public Player getPlayer(String name) {

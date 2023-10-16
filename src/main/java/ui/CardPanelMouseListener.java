@@ -14,14 +14,19 @@ public class CardPanelMouseListener extends MouseAdapter {
     Color origColor;
     PlayerOperation po;
 
-    public CardPanelMouseListener(Long PlayerCardId, PlayerOperation po) {
+    JLabel playerScoreLabel;
+
+    public CardPanelMouseListener(Long PlayerCardId, PlayerOperation po, JLabel playerScoreLabel) {
         this.PlayerCardId = PlayerCardId;
         this.po = po;
+        this.playerScoreLabel = playerScoreLabel;
     }
 
     public void mouseClicked(MouseEvent e) {
         System.out.println("PlayerCardId: " + PlayerCardId);
         po.playCard(PlayerCardId);
+
+        playerScoreLabel.setText(String.valueOf(po.getPlayerStrength()));
 
         JPanel p = (JPanel) e.getComponent();
 
