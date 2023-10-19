@@ -10,19 +10,26 @@ import java.awt.event.MouseEvent;
 
 public class CardPanelMouseListener extends MouseAdapter {
 
-    Long PlayerCardId;
-    Color origColor;
-    PlayerOperation po;
+    private Long PlayerCardId;
+    private Color origColor;
+    private PlayerOperation po;
 
-    JLabel playerScoreLabel;
+    private JLabel playerScoreLabel;
 
-    public CardPanelMouseListener(Long PlayerCardId, PlayerOperation po, JLabel playerScoreLabel) {
+    private PlayerDeck pd;
+
+    public CardPanelMouseListener(Long PlayerCardId, PlayerOperation po, JLabel playerScoreLabel, PlayerDeck pd) {
         this.PlayerCardId = PlayerCardId;
         this.po = po;
         this.playerScoreLabel = playerScoreLabel;
+        this.pd = pd;
     }
 
     public void mouseClicked(MouseEvent e) {
+        if (!pd.isHaveToMove()) {
+            return;
+        }
+
         System.out.println("PlayerCardId: " + PlayerCardId);
         po.playCard(PlayerCardId);
 
@@ -33,9 +40,15 @@ public class CardPanelMouseListener extends MouseAdapter {
         p.setBackground(CardGameConsts.PLAYED_CARD_COLOR);
         origColor = e.getComponent().getBackground();
         p.setOpaque(true);
+
+        pd.oppositeDeckMove();
     }
 
     public void mouseEntered(MouseEvent e) {
+        if (!pd.isHaveToMove()) {
+            return;
+        }
+
         origColor = e.getComponent().getBackground();
 
         if (!origColor.equals(CardGameConsts.PLAYED_CARD_COLOR)) {
@@ -44,6 +57,10 @@ public class CardPanelMouseListener extends MouseAdapter {
     }
 
     public void mouseExited(MouseEvent e) {
+        if (!pd.isHaveToMove()) {
+            return;
+        }
+
         if (!origColor.equals(CardGameConsts.PLAYED_CARD_COLOR)) {
             e.getComponent().setBackground(origColor);
         }

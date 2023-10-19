@@ -16,13 +16,33 @@ public class PlayerDeck {
     private PlayerOperation po;
     private ArrayList<JPanel> playerCards;
     private JLabel playerScoreLabel;
+    private boolean haveToMove;
 
-    public PlayerDeck(PlayerOperation po, ArrayList<JPanel> playerCards, JLabel playerScoreLabel) {
+    private PlayerDeck oppositeDeck;
+
+    public boolean isHaveToMove() {
+        return haveToMove;
+    }
+
+    public void setHaveToMove(boolean haveToMove) {
+        this.haveToMove = haveToMove;
+    }
+
+    public PlayerDeck getOppositeDeck() {
+        return oppositeDeck;
+    }
+
+    public void setOppositeDeck(PlayerDeck oppositeDeck) {
+        this.oppositeDeck = oppositeDeck;
+    }
+
+    public PlayerDeck(PlayerOperation po, ArrayList<JPanel> playerCards, JLabel playerScoreLabel, boolean haveToMove) {
         co = new CardOperation();
 
         this.po = po;
         this.playerCards = playerCards;
         this.playerScoreLabel = playerScoreLabel;
+        this.haveToMove = haveToMove;
 
         List<Card> cards = co.getAllCards();
 
@@ -40,11 +60,16 @@ public class PlayerDeck {
                     playerCards.get(i).add(currStrength);
                     playerCards.get(i).add(currPlayerCardId);
 
-                    playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po, playerScoreLabel));
+                    playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po, playerScoreLabel, this));
                 }
             }
 
             i++;
         }
+    }
+
+    public void oppositeDeckMove() {
+        haveToMove = !haveToMove;
+        oppositeDeck.setHaveToMove(true);
     }
 }

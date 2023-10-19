@@ -93,8 +93,11 @@ public class CardGame_UI {
         firPlayerScore.setText(String.valueOf(fpo.getPlayerStrength()));
         secPlayerScore.setText(String.valueOf(spo.getPlayerStrength()));
 
-        firstPlayerDeck = new PlayerDeck(fpo, firstPlayerCards, firPlayerScore);
-        secondPlayerDeck = new PlayerDeck(spo, secondPlayerCards, secPlayerScore);
+        firstPlayerDeck = new PlayerDeck(fpo, firstPlayerCards, firPlayerScore, true);
+        secondPlayerDeck = new PlayerDeck(spo, secondPlayerCards, secPlayerScore, false);
+
+        firstPlayerDeck.setOppositeDeck(secondPlayerDeck);
+        secondPlayerDeck.setOppositeDeck(firstPlayerDeck);
     }
 
 }
