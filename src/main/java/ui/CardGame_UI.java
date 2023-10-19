@@ -46,6 +46,9 @@ public class CardGame_UI {
     private ArrayList<JPanel> firstPlayerCards;
     private ArrayList<JPanel> secondPlayerCards;
 
+    public PlayerDeck firstPlayerDeck;
+    public PlayerDeck secondPlayerDeck;
+
     public CardGame_UI() {
         co = new CardOperation();
         fpo = new PlayerOperation("John");
@@ -94,33 +97,8 @@ public class CardGame_UI {
         firPlayerScore.setText(String.valueOf(fpo.getPlayerStrength()));
         secPlayerScore.setText(String.valueOf(spo.getPlayerStrength()));
 
-        createPlayerDeck(fpo, firstPlayerCards, firPlayerScore);
-        createPlayerDeck(spo, secondPlayerCards, secPlayerScore);
-    }
-
-    public void createPlayerDeck(PlayerOperation po, ArrayList<JPanel> playerCards, JLabel playerScoreLabel) {
-        List<Card> cards = co.getAllCards();
-
-        int i = 0;
-
-        for (PlayerCards currPC : po.getPlayerCards()
-        ) {
-            for (Card currCard : cards
-            ) {
-                if (currPC.getCard_id() == currCard.getId()) {
-                    JLabel currUnitName = new JLabel(currCard.getCard_name());
-                    JLabel currStrength = new JLabel(String.valueOf(currCard.getStrength()));
-                    JLabel currPlayerCardId = new JLabel(String.valueOf(currPC.getId()));
-                    playerCards.get(i).add(currUnitName);
-                    playerCards.get(i).add(currStrength);
-                    playerCards.get(i).add(currPlayerCardId);
-
-                    playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po, playerScoreLabel));
-                }
-            }
-
-            i++;
-        }
+        firstPlayerDeck = new PlayerDeck(fpo, firstPlayerCards, firPlayerScore);
+        secondPlayerDeck = new PlayerDeck(spo, secondPlayerCards, secPlayerScore);
     }
 
 }
