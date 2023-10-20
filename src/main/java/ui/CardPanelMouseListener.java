@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import static javafx.application.Platform.exit;
+
 public class CardPanelMouseListener extends MouseAdapter {
 
     private Long PlayerCardId;
@@ -40,6 +42,12 @@ public class CardPanelMouseListener extends MouseAdapter {
         p.setBackground(CardGameConsts.PLAYED_CARD_COLOR);
         origColor = e.getComponent().getBackground();
         p.setOpaque(true);
+
+        if (po.getCardsQuantity() == 0) {
+            System.out.println("Gave over!");
+            return;
+//            exit();
+        }
 
         pd.oppositeDeckMove();
     }

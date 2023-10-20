@@ -3,6 +3,7 @@ package entityoperation;
 import entity.Player;
 import entity.PlayerCards;
 import jakarta.persistence.*;
+import util.CardGameConsts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,14 @@ public class PlayerOperation {
 
     private int playerStrength;
 
+    private static int cardsQuantity;
+
     public int getPlayerStrength() {
         return playerStrength;
+    }
+
+    public static int getCardsQuantity() {
+        return cardsQuantity;
     }
 
     private StoredProcedureQuery spq;
@@ -32,6 +39,8 @@ public class PlayerOperation {
 
         this.name = name;
         this.playerStrength = 0;
+
+        cardsQuantity = CardGameConsts.BOTH_PLAYER_CARDS_LIMIT;
 
         player = (Player) em.createQuery("Select p from Player p where p.name = :pn")
                 .setParameter("pn", name)
@@ -58,6 +67,8 @@ public class PlayerOperation {
 
         playerStrength = calculatePlayerStrength();
         System.out.println("Player " + player.getName() + " has " + playerStrength + " score.");
+
+        cardsQuantity--;
     }
 
     private int calculatePlayerStrength() {
