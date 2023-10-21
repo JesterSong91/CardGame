@@ -5,7 +5,11 @@ import entity.PlayerCards;
 import entityoperation.CardOperation;
 import entityoperation.PlayerOperation;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +60,23 @@ public class PlayerDeck {
                     JLabel currUnitName = new JLabel(currCard.getCard_name());
                     JLabel currStrength = new JLabel(String.valueOf(currCard.getStrength()));
                     JLabel currPlayerCardId = new JLabel(String.valueOf(currPC.getId()));
-                    playerCards.get(i).add(currUnitName);
-                    playerCards.get(i).add(currStrength);
-                    playerCards.get(i).add(currPlayerCardId);
+
+                    if (currCard.getCard_name().equals("Clock")) {
+                        BufferedImage wPic = null;
+                        try {
+                            wPic = ImageIO.read(new File("C://Users//JesterSong//Desktop//Clock.png"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        JLabel wIcon = new JLabel(new ImageIcon(wPic));
+
+                        playerCards.get(i).add(wIcon);
+                    }
+                    else {
+                        playerCards.get(i).add(currUnitName);
+                        playerCards.get(i).add(currStrength);
+                        playerCards.get(i).add(currPlayerCardId);
+                    }
 
                     playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po, playerScoreLabel, this));
                 }
