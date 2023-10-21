@@ -47,8 +47,8 @@ public class CardGame_UI {
 
     public CardGame_UI() {
         co = new CardOperation();
-        fpo = new PlayerOperation("John");
-        spo = new PlayerOperation("Mixy");
+        fpo = new PlayerOperation("Fash");
+        spo = new PlayerOperation("Mark");
         pco = new PlayerCardsOperation();
 
         initUI();
@@ -84,10 +84,10 @@ public class CardGame_UI {
     }
 
     public void initDecks() {
-        firstPlayer = fpo.getPlayer("John");
+        firstPlayer = fpo.getPlayer("Fash");
         firstPlayerName.setText(firstPlayer.getName());
 
-        secondPlayer = spo.getPlayer("Mixy");
+        secondPlayer = spo.getPlayer("Mark");
         secondPlayerName.setText(secondPlayer.getName());
 
         firPlayerScore.setText(String.valueOf(fpo.getPlayerStrength()));
