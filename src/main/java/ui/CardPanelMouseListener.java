@@ -11,8 +11,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
-import static javafx.application.Platform.exit;
-import static javax.sound.sampled.Clip.LOOP_CONTINUOUSLY;
 import static util.CardGameConsts.PATH_TO_SOUNDS;
 
 public class CardPanelMouseListener extends MouseAdapter {
@@ -93,6 +91,31 @@ public class CardPanelMouseListener extends MouseAdapter {
         if (!origColor.equals(CardGameConsts.PLAYED_CARD_COLOR)) {
             e.getComponent().setBackground(CardGameConsts.SELECTED_CARD_COLOR);
         }
+
+        AudioInputStream stream = null;
+        try {
+            stream = AudioSystem.getAudioInputStream(new File(PATH_TO_SOUNDS + "SelectCardCutted.wav"));
+        } catch (UnsupportedAudioFileException ex) {
+            throw new RuntimeException(ex);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        AudioFormat format = stream.getFormat();
+        DataLine.Info info = new DataLine.Info(Clip.class, stream.getFormat());
+        Clip clip = null;
+        try {
+            clip = (Clip) AudioSystem.getLine(info);
+        } catch (LineUnavailableException ex) {
+            throw new RuntimeException(ex);
+        }
+        try {
+            clip.open(stream);
+        } catch (LineUnavailableException ex) {
+            throw new RuntimeException(ex);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        clip.start();
     }
 
     public void mouseExited(MouseEvent e) {
