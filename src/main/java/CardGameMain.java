@@ -1,9 +1,15 @@
 import ui.CardGame_UI;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+
+import static javax.sound.sampled.Clip.LOOP_CONTINUOUSLY;
+import static util.CardGameConsts.PATH_TO_SOUNDS;
 
 public class CardGameMain {
 
@@ -32,6 +38,32 @@ public class CardGameMain {
                         cg.pco.resetPlayerCards();
                     }
                 });
+
+                AudioInputStream stream        = null;
+                try {
+                    stream = AudioSystem.getAudioInputStream(new File(PATH_TO_SOUNDS + "CardGameMain.wav"));
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                AudioFormat format = stream.getFormat();
+                DataLine.Info info = new DataLine.Info(Clip.class, stream.getFormat());
+                Clip clip = null;
+                try {
+                    clip = (Clip) AudioSystem.getLine(info);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    clip.open(stream);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                clip.loop(LOOP_CONTINUOUSLY);
+                clip.start();
 
             }
         });
