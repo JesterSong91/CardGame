@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.CardGameConsts.PATH_TO_IMAGES;
+
 public class PlayerDeck {
 
     public CardOperation co;
@@ -52,23 +54,43 @@ public class PlayerDeck {
 
         int i = 0;
 
+        boolean isImageCard;
+
         for (PlayerCards currPC : po.getPlayerCards()
         ) {
+            isImageCard = false;
             for (Card currCard : cards
             ) {
+                JLabel wIcon = null;
+
                 if (currPC.getCard_id() == currCard.getId()) {
                     JLabel currUnitName = new JLabel(currCard.getCard_name());
                     JLabel currStrength = new JLabel(String.valueOf(currCard.getStrength()));
                     JLabel currPlayerCardId = new JLabel(String.valueOf(currPC.getId()));
 
-                    if (currCard.getCard_name().equals("Clock")) {
-                        BufferedImage wPic = null;
+                    BufferedImage wPic = null;
+                    String imagePath = null;
+
+                    if (currCard.getCard_name().equals("Clocker")) {
+                        imagePath = PATH_TO_IMAGES + "Clocker.png";
+                        isImageCard = true;
+                    }
+                    else if (currCard.getCard_name().equals("Clock")) {
+                        imagePath = PATH_TO_IMAGES + "Clock.png";
+                        isImageCard = true;
+                    }
+                    else if (currCard.getCard_name().equals("Pain")) {
+                        imagePath = PATH_TO_IMAGES + "Pain.png";
+                        isImageCard = true;
+                    }
+
+                    if (isImageCard) {
                         try {
-                            wPic = ImageIO.read(new File("C://Users//JesterSong//Desktop//Clock.png"));
+                            wPic = ImageIO.read(new File(imagePath));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        JLabel wIcon = new JLabel(new ImageIcon(wPic));
+                        wIcon = new JLabel(new ImageIcon(wPic));
 
                         playerCards.get(i).add(wIcon);
                     }
@@ -78,7 +100,11 @@ public class PlayerDeck {
                         playerCards.get(i).add(currPlayerCardId);
                     }
 
-                    playerCards.get(i).addMouseListener(new CardPanelMouseListener(currPC.getId(), po, playerScoreLabel, this));
+                    CardPanelMouseListener tempML = new CardPanelMouseListener(currPC.getId(), po, playerScoreLabel, this, currCard.getCard_name());
+                    if (isImageCard) {
+                        tempML.setCardImageLabel(wIcon);
+                    }
+                    playerCards.get(i).addMouseListener(tempML);
                 }
             }
 

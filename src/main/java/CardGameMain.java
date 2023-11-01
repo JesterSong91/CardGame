@@ -36,7 +36,7 @@ public class CardGameMain {
                     }
                 });
 
-                new MyAudioEffect(PATH_TO_SOUNDS + "CardGameMain.wav", true).play();
+                new MyAudioEffect(PATH_TO_SOUNDS + "CardGameMain2.wav", true).play();
             }
         });
 

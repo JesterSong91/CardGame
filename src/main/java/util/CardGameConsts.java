@@ -12,4 +12,5 @@ public class CardGameConsts {
     public static final Color CURRENT_PLAYER_COLOR = Color.pink;
 
     public static final String PATH_TO_SOUNDS = "C://Users//JesterSong//IdeaProjects//CardGame//sounds//";
+    public static final String PATH_TO_IMAGES = "C://Users//JesterSong//IdeaProjects//CardGame//images//";
 }
