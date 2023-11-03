@@ -86,7 +86,7 @@ public class CardPanelMouseListener extends MouseAdapter {
     }
 
     public void mouseEntered(MouseEvent e) {
-        if (!pd.isHaveToMove()) {
+        if (!pd.isHaveToMove() || isPlayed) {
             return;
         }
 

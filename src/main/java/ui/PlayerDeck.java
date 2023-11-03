@@ -83,6 +83,14 @@ public class PlayerDeck {
                         imagePath = PATH_TO_IMAGES + "Pain.png";
                         isImageCard = true;
                     }
+                    else if (currCard.getCard_name().equals("Usual Efer")) {
+                        imagePath = PATH_TO_IMAGES + "Usual Efer.png";
+                        isImageCard = true;
+                    }
+                    else if (currCard.getCard_name().equals("Overclock")) {
+                        imagePath = PATH_TO_IMAGES + "Overclock.png";
+                        isImageCard = true;
+                    }
 
                     if (isImageCard) {
                         try {
