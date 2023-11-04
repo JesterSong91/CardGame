@@ -34,8 +34,8 @@ create or replace package body Card_Game is
   begin
     
     update CG_PLAYER_TO_CARDS
-    set is_played = 0
-    where is_played = 1;
+    set is_played = 0,
+    is_in_deck = 0;
     
     commit;
   
@@ -45,7 +45,8 @@ create or replace package body Card_Game is
   begin
     
     update CG_PLAYER_TO_CARDS p2c
-    set p2c.is_played = 1
+    set p2c.is_played = 1,
+    p2c.is_in_deck = 1
     where p2c.player_to_cards_id = playing_card_id;
             
     commit;
@@ -62,5 +63,29 @@ create or replace package body Card_Game is
           and p2c.is_played = 1;
 
   end player_strength;
+  
+  procedure mark_card_is_in_deck(playing_card_id IN NUMBER) is
+  begin
+  
+    update CG_PLAYER_TO_CARDS p2c
+    set p2c.is_in_deck = 1
+    where p2c.player_to_cards_id = playing_card_id;
+    
+    commit;
+  
+  end mark_card_is_in_deck;
+  
+  procedure enemy_strength(player_name IN VARCHAR2, shield OUT NUMBER) is 
+  begin
+    
+     select nvl(sum(c.strength),0) into shield from CG_PLAYER p
+     join CG_PLAYER_TO_CARDS p2c on p2c.player_id = p.player_id
+     join CG_CARD c on c.card_id = p2c.card_id
+     where p.name = player_name
+          and p2c.is_played = 0
+          and p2c.is_in_deck = 1
+          and c.card_name = 'Clocker';
+       
+  end enemy_strength;
 
 end Card_Game;

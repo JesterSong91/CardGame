@@ -1,6 +1,5 @@
 package entityoperation;
 
-import entity.Card;
 import entity.PlayerCards;
 import jakarta.persistence.*;
 
@@ -12,16 +11,20 @@ public class PlayerCardsOperation {
     private EntityManager em;
     private StoredProcedureQuery spq;
 
+    private List<PlayerCards> playerCards;
+
     public PlayerCardsOperation() {
         emf = Persistence.createEntityManagerFactory("default");
         em = emf.createEntityManager();
     }
 
     public List<PlayerCards> getAllPlayerCards(Long playerId) {
-        return em.createQuery("Select pc from PlayerCards pc where pc.player_id = :pid")
+        playerCards = em.createQuery("Select pc from PlayerCards pc where pc.player_id = :pid")
                 .setParameter("pid", playerId)
                 .setMaxResults(6)
                 .getResultList();
+
+        return playerCards;
     }
 
     public int getPlayerCardsQuantity(String name, boolean onlyActiveCards) {

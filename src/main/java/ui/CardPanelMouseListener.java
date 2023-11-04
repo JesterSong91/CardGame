@@ -58,7 +58,7 @@ public class CardPanelMouseListener extends MouseAdapter {
 
         new MyAudioEffect(PATH_TO_SOUNDS + "PlayingCards.wav", false).play();
 
-        System.out.println("PlayerCardId: " + PlayerCardId);
+//        System.out.println("PlayerCardId: " + PlayerCardId);
         po.playCard(PlayerCardId);
 
         playerScoreLabel.setText(String.valueOf(po.getPlayerStrength()));

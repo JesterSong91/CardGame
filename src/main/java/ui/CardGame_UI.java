@@ -47,8 +47,8 @@ public class CardGame_UI {
 
     public CardGame_UI() {
         co = new CardOperation();
-        fpo = new PlayerOperation("Fash");
-        spo = new PlayerOperation("Mark");
+        fpo = new PlayerOperation("Fash", "Mark");
+        spo = new PlayerOperation("Mark", "Fash");
         pco = new PlayerCardsOperation();
 
         initUI();
